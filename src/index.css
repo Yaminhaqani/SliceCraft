@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+body {
+  height: 100dvh;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-image: url("/slicecraft/src/assets/269.jpg");
+  background-size: cover;
+  background-position: center;
+}
