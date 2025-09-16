@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2022",           // modern syntax support
-    "module": "CommonJS",         // because you're using CJS
+    "target": "ES2022",
+    "module": "CommonJS",
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": true,      // lets you use `import x from 'y'` smoothly
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
+  "include": ["src/**/*", "global.d.ts"]
 }
