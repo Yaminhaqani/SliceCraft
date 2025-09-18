@@ -5,7 +5,7 @@ import { upload } from "../middleware/upload";
 
 const router = Router();
 
-router.get("/menu", getMenu);
-router.post("/menu",upload.single("image"), addMenu);
+router.get("/", getMenu);
+router.post("/",upload.single("image"), addMenu);
 
 export default router;
