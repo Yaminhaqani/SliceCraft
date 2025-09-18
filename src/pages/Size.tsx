@@ -1,15 +1,22 @@
 import { motion } from "motion/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import type { RootState } from "../store";
+import type { AppDispatch, RootState } from "../store";
 import { setSize } from "../store/currentPizzaSlice";
+import { useEffect } from "react";
+import { fetchSizes } from "../store/pizzaSlice";
+import sizeMap from "../utils/sizeMap";
 
 const Size = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   // options from pizzaSlice
   const sizes = useSelector((state: RootState) => state.pizza.sizes);
+
+   useEffect(()=>{
+      dispatch(fetchSizes());
+    },[dispatch]);
   
 
   // current selection from currentPizzaSlice
@@ -21,7 +28,7 @@ const Size = () => {
   };
 
   return (
-    <div className="relative w-full h-fit flex flex-col items-center px-6 py-10">
+    <div className="relative w-full h-fit flex flex-col items-center px-6 pt-10">
 
       {/* Title */}
       <motion.h2
@@ -59,13 +66,13 @@ const Size = () => {
             onClick={() => handleSelect(size)}
           >
             {/* Pizza size image */}
-            {size.image && (
-              <img
-                src={size.image}
-                alt={size.name}
-                className="w-24 h-24 object-contain mb-2"
-              />
-            )}
+           {sizeMap[size.name] && (
+  <img
+    src={sizeMap[size.name]}
+    alt={size.name}
+    className="w-24 h-24 object-contain mb-2"
+  />
+)}
             <p className="font-medium">{size.name}</p>
             <p className="text-sm">₹{size.price}</p>
           </motion.div>

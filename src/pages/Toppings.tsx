@@ -1,19 +1,22 @@
 import { motion } from "motion/react";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../store";
+import type { AppDispatch, RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 import { toggleToppings } from "../store/currentPizzaSlice";
-import type React from "react";
-import { FaCheese, FaPepperHot } from "react-icons/fa";
-import { GiBulb, GiMushrooms } from "react-icons/gi";
-import { PiPepperFill } from "react-icons/pi";
-import { LiaPepperHotSolid } from "react-icons/lia";
+import iconMap from "../utils/iconMap";
+import { useEffect } from "react";
+import { fetchToppings } from "../store/pizzaSlice";
 
 const Toppings = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const toppings = useSelector((state: RootState) => state.pizza.toppings);
+
+  useEffect(() => {
+      dispatch(fetchToppings());
+    }, [dispatch]);
+
   const currentTopping = useSelector(
     (state: RootState) => state.currentPizza.toppings
   );
@@ -22,22 +25,8 @@ const Toppings = () => {
     dispatch(toggleToppings(topping));
   };
 
-  //mapping icons
-  const iconMap: Record<string, React.ReactNode>={
-    Pepperoni: <FaPepperHot className="text-3xl" />,
-    Mushrooms: <GiMushrooms  className="text-amber-950/70 text-4xl"/>,
-    Onions: <GiBulb className="text-yellow-500/70 text-3xl"/>,
-    "Extra Cheese": <FaCheese className="text-orange-500/70 text-3xl"/>,
-    "Green Peppers": <PiPepperFill className="text-green-600/70 text-4xl"/>,
-    Jalapeños: <LiaPepperHotSolid className="text-green-950/70 text-4xl"/>,
-    "Black Olives": (
-      <img src='../assets/olive.png' className="w-9 h-9 object-contain"/>
-    )
-
-  }
-
   return (
-    <div className="relative w-full h-fit flex flex-col items-center px-6 py-10">
+    <div className="relative w-full h-fit flex flex-col items-center px-6 pt-10">
       <motion.h2
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -103,7 +92,6 @@ const Toppings = () => {
               : "0px 0px 6px rgba(156, 163, 175, 0.4)",
           }}
           onClick={() => navigate("/create/review")}
-          disabled={!currentTopping}
           className={`px-6 py-3 rounded-xl font-semibold shadow transition
             ${
               currentTopping

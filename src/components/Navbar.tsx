@@ -4,7 +4,7 @@ import {motion} from "motion/react"
 const Navbar = () => {
   return (
     <>
-      <div className="w-full h-[80px] bg-transparent flex items-center mt-2">
+      <div className="w-full h-[80px] bg-transparent flex items-center pt-2">
         <div className="h-full w-[100px] flex items-center shrink-0">
           <img src={logo} alt="Logo" className="h-full w-full object-cover" />
         </div>

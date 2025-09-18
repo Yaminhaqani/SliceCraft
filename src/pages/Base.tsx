@@ -1,15 +1,21 @@
 import { motion } from "motion/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import type { RootState } from "../store";
+import type { AppDispatch, RootState } from "../store";
 import { setBase } from "../store/currentPizzaSlice";
+import { useEffect } from "react";
+import { fetchBases } from "../store/pizzaSlice";
 
 const Base = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   // options from pizzaSlice
   const bases = useSelector((state: RootState) => state.pizza.bases);
+
+  useEffect(()=>{
+    dispatch(fetchBases());
+  },[dispatch]);
 
   // current selection from currentPizzaSlice
   const currentBase = useSelector(
@@ -21,7 +27,7 @@ const Base = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center px-6 py-10 ">
+    <div className="w-full min-h-screen flex flex-col items-center px-6 pt-10 ">
       {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: -50 }}
