@@ -1,13 +1,17 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
+// import ScrollIntroVideo from '../components/ScrollIntroVideo';
+
 
 const Welcome = () => {
   return (
+    <>
+    {/* <ScrollIntroVideo/> */}
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className=" w-full flex flex-col items-center py-36 sm:py-36"
+      className=" w-full flex flex-col items-center py-36 sm:py-36 z-10"
     >
 
 
@@ -40,6 +44,7 @@ const Welcome = () => {
         </motion.button>
       </Link>
     </motion.div>
+    </>
   );
 };
 

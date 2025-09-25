@@ -11,6 +11,7 @@ import Toppings from "./pages/Toppings";
 import Review from "./pages/Review";
 import { useSelector } from "react-redux";
 import { selectPizzaTotal } from "./store/currentPizzaSlice";
+import AddMenu from "./pages/AddMenu";
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="toppings" element={<Toppings />} />
             <Route path="review" element={<Review />} />
           </Route>
+           <Route path="add-menu" element={<AddMenu />} />
         </Routes>
       </BrowserRouter>
     </div>

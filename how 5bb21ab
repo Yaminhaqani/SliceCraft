@@ -1,0 +1,5 @@
+[33m8d70bfa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mclient[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/client[m[33m)[m HEAD@{0}: checkout: moving from master to client
+[33m7a7ba22[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{1}: commit: Connected to server and getting pizza details from it.
+[33m5bb21ab[m HEAD@{2}: commit: connected with server
+[33m8d70bfa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mclient[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/client[m[33m)[m HEAD@{3}: checkout: moving from master to master
+[33m8d70bfa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mclient[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/client[m[33m)[m HEAD@{4}: commit (initial): Initial commit: Pizza Builder App

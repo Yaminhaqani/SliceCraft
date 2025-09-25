@@ -33,7 +33,7 @@ const CurrentPizzaSlice = createSlice({
         },
 
         toggleToppings: (state, action: PayloadAction<PizzaOption>)=>{
-            const exists = state.toppings.find(t=> t.name === action.payload.name);
+            const exists = state.toppings.find(t=> t.name === action.payload.name);  //includes() checks for existence, find() searches for and returns the element.
             if(exists){
                 state.toppings = state.toppings.filter(t=> t.name !== action.payload.name);
             } else{
