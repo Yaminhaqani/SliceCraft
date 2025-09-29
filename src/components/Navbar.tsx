@@ -43,13 +43,12 @@ const Navbar = () => {
         }}
          className=" h-full overflow-hidden">
           <img
-            className="h-full w-auto scale-160 object-contain invert-[8%] pb-0.5"
+            className="h-full w-auto scale-160 object-contain invert-[8%] pb-0.5 pl-3 sm:pl-0"
             src={logo}
             alt="logo"
           />
         </motion.div>
         
-        {/* <span className="font-semibold text-lg mt-2">SliceCraft</span> */}
 
   <motion.div
     className="flex"
@@ -116,7 +115,7 @@ const Navbar = () => {
               key={link.id}
               className="flex items-center cursor-pointer"
             >
-              <Link to={link.to} className={`flex items-center gap-2 px-1 py-1 rounded-md ${
+              <Link to={link.to} className={`flex items-center gap-1 px-1 py-0.5 rounded-md ${
     location.pathname === link.to
       ? "bg-orange-500/70 text-white"   
       : "text-gray-400 hover:bg-orange-500/30" 

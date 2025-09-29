@@ -1,3 +1,10 @@
+//FONT
+import '@fontsource/orbitron/400.css'; //Regular 
+import '@fontsource/orbitron/500.css'; //Medium
+import '@fontsource/orbitron/600.css'; //Semibold
+import '@fontsource/orbitron/700.css'; //Bold
+
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Welcome from "./pages/Welcome";

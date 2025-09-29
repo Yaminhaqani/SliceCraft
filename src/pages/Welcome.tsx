@@ -1,51 +1,75 @@
-import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
-// import ScrollIntroVideo from '../components/ScrollIntroVideo';
+import {motion} from "motion/react"
+import { Link } from "react-router-dom"
+
 
 
 const Welcome = () => {
   return (
-    <>
-    {/* <ScrollIntroVideo/> */}
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-      className=" w-full flex flex-col items-center py-36 sm:py-36 z-10"
-    >
+    <div>
 
+      <motion.div
+      className="relative w-full h-[45dvh] xl:h-[60dvh]  border border-amber-50"
+      initial="hidden"
+      animate="visible"
+      transition={{
+        staggerChildren:0.3,  // Delay between each child
+        delayChildren: 0.2    // Delay before first child starts
+      }}>
+        
 
+        <motion.img className="w-full h-full object-cover object-top sm:object-[-50%58%]"
+        variants={{
+          hidden:{opacity:0},
+          visible: { opacity: 1, transition: { duration: 0.6 } }
+        }}
+         src="assets/PizzaHero.jpg" alt="PizzaHero" />
 
-      <h2 className="relative z-10 
-                     bg-[linear-gradient(45deg,hsla(0,100%,36%,1)_42%,hsla(0,100%,51%,1)_100%)]
-                     bg-clip-text text-transparent tracking-wider 
-                     text-2xl sm:text-4xl font-extrabold mb-7">
-        Welcome to Slice Craft
-      </h2>
+<Link to="/create/base">
+         <motion.button className="absolute top-15 left-2 bg-orange-500/90 border-none tracking-tight font-['Orbitron'] font-medium text-white rounded-md p-0.5 shadow-md hover:shadow-amber-500/40 cursor-pointer sm:top-20 sm:text-xl"
+         whileHover={{scale:1.04}}
+         whileTap={{scale: 0.95}}
+         variants={{
+      hidden: { opacity: 0, x: -50 },
+      visible: { 
+        opacity: 1, 
+        x: 0, 
+        transition: { 
+          type: "spring", 
+          stiffness: 100,
+          damping: 12
+        } 
+      }
+    }}
+         >
+          CRAFT YOUR OWN PIZZA
+         </motion.button>
+</Link>
 
+<Link to="/create/toppings">
+         <motion.button className="absolute top-23 left-2 bg-transparent border tracking-tight text-sm font-light text-white rounded-sm shadow-md hover:shadow-gray-500/60 cursor-pointer sm:top-29 sm:text-md"
+         whileHover={{scale:1.05}}
+         whileTap={{scale: 0.95}}
+         variants={{
+      hidden: { opacity: 0, x: -50 },
+      visible: { 
+        opacity: 1, 
+        x: 0, 
+        transition: { 
+          type: "spring", 
+          stiffness: 100,
+          damping: 12
+        } 
+      }
+    }}
+         >
+          Browse our menu
+         </motion.button>
+         </Link>
+      </motion.div>
+      
 
-      <Link to="/create/base" className="relative z-10">
-        <motion.button
-          whileHover={{
-            scale: 1.1,
-            boxShadow: "0px 0px 15px rgba(255,0,0,0.8)"
-          }}
-          transition={{
-            type: 'spring',
-            stiffness: 120,
-            damping: 9,
-            duration: 0.5
-          }}
-          className="text-white tracking-wide rounded-2xl px-6 py-2 font-medium
-                     bg-[linear-gradient(45deg,hsla(0,100%,36%,1)_0%,hsla(0,100%,51%,1)_100%)]
-                     border border-transparent hover:border-red-600"
-        >
-          Create Your Pizza
-        </motion.button>
-      </Link>
-    </motion.div>
-    </>
-  );
-};
+    </div>
+  )
+}
 
-export default Welcome;
+export default Welcome
