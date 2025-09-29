@@ -8,7 +8,7 @@ const Welcome = () => {
     <div>
 
       <motion.div
-      className="relative w-full h-[45dvh] xl:h-[60dvh]  border border-amber-50"
+      className="relative w-full h-[45dvh] xl:h-[60dvh]"
       initial="hidden"
       animate="visible"
       transition={{
