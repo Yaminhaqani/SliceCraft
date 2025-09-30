@@ -41,6 +41,8 @@ const seedData = async () => {
       { name: "Green Peppers", price: 30 },
       { name: "Jalapeños", price: 25 },
       { name: "Black Olives", price: 35 },
+      { name: "Fresh Basil", price: 10 },
+      { name: "Mozzarella", price: 40 },
     ]);
 
     console.log("Data seeded successfully!");

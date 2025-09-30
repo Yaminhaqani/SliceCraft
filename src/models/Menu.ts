@@ -3,7 +3,7 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 
 export interface IMenu extends Document {
     name: string;
-    description?: string;
+    description: string;
     base: mongoose.Types.ObjectId;
     size: mongoose.Types.ObjectId;
     toppings: mongoose.Types.ObjectId[];

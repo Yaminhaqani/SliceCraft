@@ -14,8 +14,19 @@ export const getMenu = async (req: Request, res: Response) => {
 
 export const addMenu = async (req: Request, res: Response) => {
   try {
-    const { name, description, base, size, toppings, price } = req.body;
+    const { name, description, base, size, toppings: toppingsStr, price } = req.body;
     const file = req.file; // uploaded image
+
+     // Parse toppings from JSON string to array
+    let toppings: string[] = [];
+    try {
+      toppings = JSON.parse(toppingsStr);
+    } catch (e) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid toppings format",
+      });
+    }
 
     const errors: string[] = [];
 
@@ -63,7 +74,7 @@ export const addMenu = async (req: Request, res: Response) => {
           {
             folder: "SliceCraft/menu",
             resource_type: "image",
-            public_id: `${name.trim().replace(/\s+/g, "_")}_${Date.now()}`,
+            public_id: `${name.trim().replace(/[^a-zA-Z0-9]/g, "_")}_${Date.now()}`,
           },
           (error, result) => {
             if (error) reject(error);
