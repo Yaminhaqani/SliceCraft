@@ -4,7 +4,7 @@ import { API_URL } from "../apiConfig";
 
 
 type PizzaOption = {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   image?: string; //optional

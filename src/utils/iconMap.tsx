@@ -13,6 +13,12 @@ const iconMap: Record<string, React.ReactNode> = {
   "Black Olives": (
     <img src="../assets/olive.png" className="w-9 h-9 object-contain" />
   ),
+  "Fresh Basil": (
+    <img src="../assets/basil.png" className="w-9 h-9 object-contain" />
+  ),
+  Mozzarella: (
+    <img src="../assets/mozzarella.png" className="w-9 h-9 object-contain" />
+  ),
 };
 
 export default iconMap;
