@@ -46,6 +46,10 @@ export const addMenu = async (req: Request, res: Response) => {
       errors.push("Price must be a positive number");
     }
 
+    if(!description || description.trim() === ''){
+      errors.push("Description cannot be empty.")
+    }
+
     if (!file) {
       errors.push("Image is required");
     }
