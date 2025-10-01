@@ -147,10 +147,19 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement 
           navigate('/menu')
         }, 1500);
     } catch (error: any) {
-        const errorMsg =
-        error.response?.data?.message ||
-        error.response?.data?.errors?.join(", ") ||
-        "Failed to add pizza. Please try again.";
+        const backendMsg = error.response?.data?.message;
+        const backendErrors = error.response?.data?.errors?.join(", ") || "Failed to add pizza. Please try again.";
+
+        let errorMsg = "";
+        if(backendMsg) errorMsg += backendMsg;
+
+         if (Array.isArray(backendErrors) && backendErrors.length > 0) {  //Before calling .join(), make sure backendErrors is actually an array
+    errorMsg += " → " + backendErrors.join(", ");
+  } else if (typeof backendErrors === "string") {
+    errorMsg += " → " + backendErrors;  // in case backend sent a single string
+  }
+
+
       setMessage({ type: "error", text: errorMsg });
     }  finally {
       setLoading(false);
@@ -170,7 +179,12 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement 
       >
         Add New Pizza
         </motion.h2>
-      <motion.form onSubmit={handleSubmit}
+
+      <motion.form 
+      initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, ease: "easeOut" }}
+      onSubmit={handleSubmit}
       className=" flex flex-col w-[93%] h-fit py-3 text-gray-100 gap-2"
       >
 

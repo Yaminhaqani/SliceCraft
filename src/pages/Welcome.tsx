@@ -45,7 +45,7 @@ const Welcome = () => {
          </motion.button>
 </Link>
 
-<Link to="/create/toppings">
+<Link to="/menu">
          <motion.button className="absolute top-23 left-2 bg-transparent border tracking-tight text-sm font-light text-white rounded-sm shadow-md hover:shadow-gray-500/60 cursor-pointer sm:top-29 sm:text-md"
          whileHover={{scale:1.05}}
          whileTap={{scale: 0.95}}
