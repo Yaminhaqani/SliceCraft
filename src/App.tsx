@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { selectPizzaTotal } from "./store/currentPizzaSlice";
 import AddMenu from "./pages/AddMenu";
 import MenuPage from './pages/MenuPage';
+import MenuDetail from './pages/MenuDetail';
 
 
 
@@ -47,6 +48,7 @@ const App = () => {
           </Route>
            <Route path="add-menu" element={<AddMenu />} />
            <Route path="menu" element={<MenuPage />} />
+           <Route path="menu/:id" element={<MenuDetail />} />
         </Routes>
       </BrowserRouter>
     </div>
