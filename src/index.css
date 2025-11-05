@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xxs: 375px; 
+   --breakpoint-xs: 400px;
+  --breakpoint-x: 450px;  
+  --breakpoint-xmd: 500px;  
+  /* This makes the 'xs' variant available (e.g., xs:h-[...]) */
+}
+
 body {
   height: 100dvh;
   width: 100%;

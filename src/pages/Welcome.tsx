@@ -24,6 +24,18 @@ const Welcome = () => {
         }}
          src="assets/PizzaHero.jpg" alt="PizzaHero" />
 
+         {/* IF VIDEO */}
+                 {/* <motion.video className="w-full h-full object-cover object-top sm:object-[-50%58%]"
+        variants={{
+          hidden:{opacity:0},
+          visible: { opacity: 1, transition: { duration: 0.6 } }
+        }}
+         src="assets/PizzaHero2.mp4" 
+         muted
+         autoPlay
+         loop
+          /> */}
+
 <Link to="/create/base">
          <motion.button className="absolute top-15 left-2 bg-orange-500/90 border-none tracking-tight font-['Orbitron'] font-medium text-white rounded-md p-0.5 shadow-md hover:shadow-amber-500/40 cursor-pointer sm:top-20 sm:text-xl"
          whileHover={{scale:1.04}}
