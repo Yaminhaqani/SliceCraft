@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { motion } from "motion/react";
 import iconMap from "../utils/iconMap";
 
-
 //REDUX
 // import { motion } from "motion/react";
 // import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +16,6 @@ import iconMap from "../utils/iconMap";
 // import iconMap from "../utils/iconMap";
 // import { useEffect } from "react";
 // import { fetchToppings } from "../store/pizzaSlice";
-
-
 
 //REDUX
 // const Toppings = () => {
@@ -50,7 +47,7 @@ import iconMap from "../utils/iconMap";
 //           damping: 17,
 //         }}
 //         className="relative z-10 bg-[linear-gradient(45deg,hsla(0,100%,36%,1)_42%,hsla(0,100%,51%,1)_100%)]
-//                    bg-clip-text text-transparent tracking-wider 
+//                    bg-clip-text text-transparent tracking-wider
 //                    text-2xl sm:text-4xl font-extrabold pb-7 text-center"
 //       >
 //         Choose Toppings
@@ -84,7 +81,6 @@ import iconMap from "../utils/iconMap";
 //         ))}
 //       </div>
 
-      
 //       {/* Prev/Next Navigation */}
 //       <div className="flex justify-between items-center w-full max-w-2xl mt-auto py-8">
 //         <motion.button
@@ -122,23 +118,26 @@ import iconMap from "../utils/iconMap";
 
 //ZUSTAND
 const Toppings = () => {
-
   const navigate = useNavigate();
 
   const { toppings, fetchToppings } = usePizzaStore();
   const { toppings: currentToppings, toggleToppings } = useCurrentPizzaStore();
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchToppings();
-  },[fetchToppings]);
+  }, [fetchToppings]);
 
-   const handleToggle = (topping: PizzaOption) => {
+  const handleToggle = (topping: PizzaOption) => {
     toggleToppings(topping);
-  }
+  };
 
-
-    return (
-    <div className="relative w-full h-fit flex flex-col items-center px-6 pt-10">
+  return (
+    <motion.div
+      initial={{ width: 0, opacity: 0 }}
+      animate={{ width: "100%", opacity: 1 }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+      className="relative w-full h-fit flex flex-col items-center px-6 pt-10"
+    >
       <motion.h2
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -173,14 +172,16 @@ const Toppings = () => {
               }`}
           >
             <span className="flex justify-center">{iconMap[topping.name]}</span>
-           <div className="flex justify-center gap-1">
-                <span>{topping.name}</span> - <span className="text-gray-400 font-medium">₹{topping.price}</span>
-              </div>
+            <div className="flex justify-center gap-1">
+              <span>{topping.name}</span> -{" "}
+              <span className="text-gray-400 font-medium">
+                ₹{topping.price}
+              </span>
+            </div>
           </motion.div>
         ))}
       </div>
 
-      
       {/* Prev/Next Navigation */}
       <div className="flex justify-between items-center w-full md:w-[40dvw] max-w-2xl mt-auto py-8 md:mt-7">
         <motion.button
@@ -205,16 +206,15 @@ const Toppings = () => {
           className={`px-6 py-3 rounded-xl font-semibold shadow
             ${
               currentToppings
-                ?"bg-orange-400/90 text-white border-none hover:bg-orange-500/70"
+                ? "bg-orange-400/90 text-white border-none hover:bg-orange-500/70"
                 : "bg-gray-300 text-gray-500 border-none cursor-not-allowed"
             }`}
         >
           Next
         </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
-
-}
+};
 
 export default Toppings;

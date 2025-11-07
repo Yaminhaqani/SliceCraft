@@ -6,8 +6,6 @@ import { motion } from "motion/react";
 import sizeMap from "../utils/sizeMap";
 import { useEffect } from "react";
 
-
-
 //REDUX
 // import { motion } from "motion/react";
 // import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +15,6 @@ import { useEffect } from "react";
 // import { useEffect } from "react";
 // import { fetchSizes } from "../store/pizzaSlice";
 // import sizeMap from "../utils/sizeMap";
-
 
 //REDUX
 // const Size = () => {
@@ -30,11 +27,9 @@ import { useEffect } from "react";
 //    useEffect(()=>{
 //       dispatch(fetchSizes());
 //     },[dispatch]);
-  
 
 //   // current selection from currentPizzaSlice
 //   const currentSize = useSelector((state: RootState) => state.currentPizza.size);
-
 
 //   const handleSelect = (size: { name: string; price: number; image?: string }) => {
 //     dispatch(setSize(size));
@@ -53,7 +48,7 @@ import { useEffect } from "react";
 //           damping: 17,
 //         }}
 //         className="relative z-10 bg-[linear-gradient(45deg,hsla(0,100%,36%,1)_42%,hsla(0,100%,51%,1)_100%)]
-//                    bg-clip-text text-transparent tracking-wider 
+//                    bg-clip-text text-transparent tracking-wider
 //                    text-2xl sm:text-4xl font-extrabold mb-7 text-center"
 //       >
 //         Choose Size
@@ -130,24 +125,26 @@ import { useEffect } from "react";
 
 //ZUSTAND
 const Size = () => {
-
   const navigate = useNavigate();
 
   const { sizes, fetchSizes } = usePizzaStore();
   const { size: currentSize, setSize } = useCurrentPizzaStore();
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchSizes();
-  }, [fetchSizes])
+  }, [fetchSizes]);
 
   const handleSelect = (size: PizzaOption) => {
     setSize(size);
-  }
+  };
 
-
-    return (
-    <div className="relative w-full h-fit flex flex-col items-center px-6 pt-10">
-
+  return (
+    <motion.div
+      initial={{ width: 0, opacity: 0 }}
+      animate={{ width: "100%", opacity: 1 }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+      className="relative w-full h-fit flex flex-col items-center px-6 pt-10"
+    >
       {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: -50 }}
@@ -184,20 +181,20 @@ const Size = () => {
             onClick={() => handleSelect(size)}
           >
             {/* Pizza size image */}
-           {sizeMap[size.name] && (
-  <img
-    src={sizeMap[size.name]}
-    alt={size.name}
-    className="w-24 h-24 object-contain mb-2"
-  />
-)}
+            {sizeMap[size.name] && (
+              <img
+                src={sizeMap[size.name]}
+                alt={size.name}
+                className="w-24 h-24 object-contain mb-2"
+              />
+            )}
             <p className="font-medium">{size.name}</p>
             <p className="text-sm font-medium text-gray-400">₹{size.price}</p>
           </motion.div>
         ))}
       </div>
 
-        {/* Prev/Next Navigation */}
+      {/* Prev/Next Navigation */}
       <div className="flex justify-between items-center w-full md:w-[40dvw] max-w-2xl mt-auto py-8 md:mt-7">
         <motion.button
           whileHover={{
@@ -222,16 +219,15 @@ const Size = () => {
           className={`px-6 py-3 rounded-xl font-semibold shadow 
             ${
               currentSize
-                ?  "bg-orange-400/90 text-white border-none hover:bg-orange-500/70"
+                ? "bg-orange-400/90 text-white border-none hover:bg-orange-500/70"
                 : "bg-gray-300 text-gray-500 border-none cursor-not-allowed"
             }`}
         >
           Next
         </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
-
-}
+};
 
 export default Size;

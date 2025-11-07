@@ -138,7 +138,11 @@ const Base = () => {
   }
 
 return(
-      <div className="w-full h-fit flex flex-col items-center px-6 pt-10">
+      <motion.div
+       initial={{ width: 0, opacity: 0 }}
+      animate={{ width: "100%", opacity: 1 }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+       className="w-full h-fit flex flex-col items-center px-6 pt-10">
       {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: -50 }}
@@ -214,7 +218,7 @@ return(
           Next
         </motion.button>
       </div>
-    </div>
+    </motion.div>
 )
 };
 

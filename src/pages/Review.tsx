@@ -7,7 +7,6 @@ import sizeMap from "../utils/sizeMap";
 import { useCurrentPizzaStore } from "../zustand/currentPizzaStore";
 
 const Review = () => {
-
   //REDUX
   // const base = useSelector((state: RootState) => state.currentPizza.base);
   // const size = useSelector((state: RootState) => state.currentPizza.size);
@@ -20,15 +19,20 @@ const Review = () => {
 
   const navigate = useNavigate();
 
-    const handleConfirm = () => {
+  const handleConfirm = () => {
     const confirmed = window.confirm("Order Confirmed! 🍕");
     if (confirmed) {
-      navigate('/'); 
+      navigate("/");
     }
   };
 
   return (
-    <div className="px-8 pt-10 pb-4 flex flex-col items-center h-fit text-gray-50">
+    <motion.div
+      initial={{ width: 0, opacity: 0 }}
+      animate={{ width: "100%", opacity: 1 }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+      className="px-8 pt-10 pb-4 flex flex-col items-center h-fit text-gray-50"
+    >
       <h2 className="text-3xl font-bold mb-6 bg-[linear-gradient(45deg,theme(colors.orange.600)_42%,theme(colors.orange.400)_100%)] text-transparent bg-clip-text">
         Review Your Pizza
       </h2>
@@ -36,19 +40,24 @@ const Review = () => {
       {/* Base */}
       <div className="mb-6 w-[200px]">
         <p className="font-bold">Base:</p>
-        <p className="text-gray-300">{base ? `${base.name} (₹${base.price})` : "Not selected"}</p>
+        <p className="text-gray-300">
+          {base ? `${base.name} (₹${base.price})` : "Not selected"}
+        </p>
       </div>
 
       {/* Size */}
       <div className="mb-6 w-[200px]">
         <p className="font-bold">Size:</p>
-       {size &&( 
-        <img
-          src={sizeMap[size.name]}
-          alt={size.name}
-          className="w-24 h-24 object-contain mb-0.5"
-        />)}
-        <p className="text-gray-300">{size ? `${size.name} (₹${size.price})` : "Not selected"}</p>
+        {size && (
+          <img
+            src={sizeMap[size.name]}
+            alt={size.name}
+            className="w-24 h-24 object-contain mb-0.5"
+          />
+        )}
+        <p className="text-gray-300">
+          {size ? `${size.name} (₹${size.price})` : "Not selected"}
+        </p>
       </div>
 
       {/* Toppings */}
@@ -72,7 +81,6 @@ const Review = () => {
 
       {/* Buttons */}
       <div className="flex w-[100dvw] md:w-[40dvw] justify-between items-center mt-8 px-6 sm:w-[50%] sm:px-0">
-      
         <motion.button
           whileHover={{
             scale: 1.1,
@@ -84,15 +92,14 @@ const Review = () => {
           Prev
         </motion.button>
 
-          <button
+        <button
           className="px-6 py-3 rounded-xl border-none bg-gradient-to-r from-green-500 to-emerald-700 text-white font-semibold shadow-lg hover:scale-105 transition-transform"
           onClick={handleConfirm}
         >
           Confirm
         </button>
-
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -8,18 +8,12 @@
 // import { useNavigate } from "react-router-dom";
 
 //ZUSTAND IMPORTS
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { usePizzaStore } from "../zustand/pizzaStore";
 import { useCartStore } from "../zustand/cartStore";
 import { useEffect } from "react";
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 import toast from "react-hot-toast";
-
-
-
-
-
-
 
 //redux based
 // const MenuPage = () => {
@@ -41,8 +35,7 @@ import toast from "react-hot-toast";
 //         price: pizza.price,
 //       })
 //     );
-//    } 
-   
+//    }
 
 //   return (
 //     <div className="w-full h-fit">
@@ -56,7 +49,7 @@ import toast from "react-hot-toast";
 //             Choose from Menu</motion.h2>
 //     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-[93%] max-w-4xl mx-auto py-3 ">
 //         {menu.map(pizza=>(
-//           <motion.div 
+//           <motion.div
 //           initial={{opacity:0, y:30}}
 //           whileInView={{opacity:1, y:0}}
 //           transition={{duration: 0.5, ease: "easeOut"}}
@@ -85,13 +78,11 @@ import toast from "react-hot-toast";
 //               </motion.button>
 //           </motion.div>
 
-          
 //         ))}
 //     </div>
 //     </div>
 //   )
 // }
-
 
 //zustand based
 const MenuPage = () => {
@@ -103,73 +94,82 @@ const MenuPage = () => {
   //Cart Store
   const addToCart = useCartStore((state) => state.addToCart);
 
-
   //Fetch Menu
-  useEffect(()=>{
+  useEffect(() => {
     fetchMenu();
-  },[fetchMenu]);
+  }, [fetchMenu]);
 
-  const handleAddToCart = (pizza: {_id: string; name: string; price: number}) =>{
+  const handleAddToCart = (pizza: {
+    _id: string;
+    name: string;
+    price: number;
+  }) => {
     addToCart({
       id: pizza._id,
       name: pizza.name,
-      price: pizza.price
+      price: pizza.price,
     });
 
-    toast.success(`${pizza.name} added to cart!`)
+    toast.success(`${pizza.name} added to cart!`);
   };
 
   return (
-        <div className="w-full h-fit">
-           <motion.h2 className="w-full text-center font-['Orbitron'] text-white mt-4 text-2xl font-bold"
-           initial={{opacity:0}}
-      animate={{opacity:1}}
-      transition={{
-        duration:1
-      }}
-           >
-            Choose from Menu</motion.h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-[93%] max-w-4xl mx-auto py-3 ">
-        {menu.map(pizza=>(
-          <motion.div 
-          initial={{opacity:0, y:60}}
-          whileInView={{opacity:1, y:0}}
-          transition={{duration: 0.5, ease: "easeOut"}}
-          viewport={{once: true, margin:"-100px"}}  //amount also does the same as margin.
-           onClick={() => navigate(`/menu/${pizza._id}`)}
-          key={pizza._id}
-           className="relative bg-[#232425] rounded-2xl overflow-hidden h-[400px] xxs:h-[450px] xs:h-[490px] x:h-[500px] sm:h-[420px] xmd:h-fit md:h-[370px] lg:h-[400px] cursor-pointer">
-            <img src={pizza.image}
-             alt={pizza.image}
-            //  loading="lazy"
-            className="w-full object-cover"/>
-            <h3 className="text-gray-200 text-lg font-bold mt-3 px-3">{pizza.name}</h3>
+    <motion.div
+      initial={{ width: 0, opacity: 0 }}
+      animate={{ width: "100%", opacity: 1 }}
+      exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
+      className="w-full h-fit"
+    >
+      <motion.h2
+        className="w-full text-center font-['Orbitron'] bg-[linear-gradient(45deg,theme(colors.orange.600)_42%,theme(colors.orange.400)_100%)] bg-clip-text text-transparent tracking-wider mt-4 text-2xl sm:text-4xl font-bold"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+        }}
+      >
+        Choose from Menu
+      </motion.h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-[93%] max-w-4xl mx-auto py-3 ">
+        {menu.map((pizza) => (
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-20px" }} //amount also does the same as margin.
+            onClick={() => navigate(`/menu/${pizza._id}`)}
+            key={pizza._id}
+            className="relative bg-[#232425] rounded-2xl overflow-hidden h-[400px] xxs:h-[450px] xs:h-[490px] x:h-[500px] sm:h-[420px] xmd:h-fit md:h-[370px] lg:h-[400px] cursor-pointer"
+          >
+            <img
+              src={pizza.image}
+              alt={pizza.image}
+              //  loading="lazy"
+              className="w-full object-cover"
+            />
+            <h3 className="text-gray-200 text-lg font-bold mt-3 px-3">
+              {pizza.name}
+            </h3>
             <p className="text-gray-400 text-md mb-3 px-3">₹{pizza.price}</p>
 
             {/* Add to Cart Button */}
             <motion.button
-            whileHover={{scale:1.09}}
-            whileTap={{scale:0.9}}
-            type="button"
-             onClick={(e)=>{
-              e.stopPropagation(); //stops click from bubbling to parent div
-              handleAddToCart(pizza)}}
-            className="absolute bottom-4 xxs:bottom-3 x:bottom-2 md:bottom-4 right-4 bg-orange-400 text-[12px] font-['Orbitron'] p-1 rounded-md cursor-pointer">
+              whileHover={{ scale: 1.09 }}
+              whileTap={{ scale: 0.9 }}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation(); //stops click from bubbling to parent div
+                handleAddToCart(pizza);
+              }}
+              className="absolute bottom-4 xxs:bottom-3 x:bottom-2 md:bottom-4 right-4 bg-orange-400 text-[12px] font-['Orbitron'] p-1 rounded-md cursor-pointer"
+            >
               Add to Cart
-              </motion.button>
+            </motion.button>
           </motion.div>
-
-          
         ))}
-    </div>
-    </div>
-  )
+      </div>
+    </motion.div>
+  );
+};
 
-
-
-}
-
-
-
-
-export default MenuPage
+export default MenuPage;
