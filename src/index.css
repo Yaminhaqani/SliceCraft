@@ -11,18 +11,30 @@
 body {
   height: 100dvh;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   background-image: url("/slicecraft/src/assets/269.jpg");
   background-size: cover;
   background-position: center;
 }
 
-input,
+/* input,
 select,
 textarea {
   @apply transition-colors duration-200 border border-gray-600;
   
+} */
+
+input,
+select,
+textarea{
+  @apply w-full border border-orange-500/70 rounded-3xl bg-transparent text-white p-2 pl-2 placeholder:text-orange-300/70 placeholder:text-sm placeholder:font-medium placeholder:px-2 transition-all duration-200;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  @apply border-orange-400/90;
 }
 
 input:focus,

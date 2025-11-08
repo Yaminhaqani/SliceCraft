@@ -10,6 +10,8 @@ import AddMenu from '../pages/AddMenu';
 import MenuPage from '../pages/MenuPage';
 import MenuDetail from '../pages/MenuDetail';
 import { AnimatePresence } from 'motion/react';
+import Login from '../pages/Login';
+import ForgotPassword from '../pages/ForgotPassword';
 
 // import Welcome from "./pages/Welcome";
 
@@ -41,9 +43,11 @@ function AnimatedRoutes() {
             <Route path="toppings" element={<Toppings />} />
             <Route path="review" element={<Review />} />
           </Route>
-           <Route path="add-menu" element={<AddMenu />} />
+           <Route path="menu/add-menu" element={<AddMenu />} />
            <Route path="menu" element={<MenuPage />} />
            <Route path="menu/:id" element={<MenuDetail />} />
+           <Route path ="login" element={<Login />}/>
+           <Route path ="forgot-password" element={<ForgotPassword />}/>
 
         </Routes>
          </AnimatePresence>
