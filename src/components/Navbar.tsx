@@ -10,7 +10,9 @@ const Navbar = () => {
   const [hamToggle, setHamToggle] = useState(false);
   const location = useLocation();
   return (
-    <nav className="h-14 w-full flex sticky top-0 z-50 items-center justify-between sm:px-12 px-4 bg-black/30 backdrop-blur-md border-b border-white/10 text-white">
+    <nav className="h-14 w-full flex sticky top-0 z-50 items-center justify-between sm:px-12 px-4   bg-black/30 backdrop-blur-md
+             border-b border-white/30
+             text-white">
       {/* Hamburger */}
       <motion.button
       whileHover={{ scale: 1.05 }}

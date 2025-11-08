@@ -18,12 +18,12 @@ const Login = () => {
       initial={{ width: 0, opacity: 0 }}
       animate={{ width: "100%", opacity: 1 }}
       exit={{ x: window.innerWidth, transition: { duration: 0.1 } }}
-      className="border border-white relative w-full min-h-[calc(100vh-56px)] bg-cover bg-center"
+      className="relative w-full min-h-[calc(100vh-56px)] bg-cover bg-center"
       style={{ backgroundImage: `url('./assets/restaurant-hero.jpg')` }}
     >
-      <motion.div className="border border-cyan-400 absolute inset-0 bg-black/70 backdrop-blur-xs flex justify-center">
+      <motion.div className="absolute inset-0 bg-black/70 flex justify-center">
 
-        <motion.div className="border border-white w-[90dvw] xmd:w-[70dvw] sm:w-[50dvw] md:w-[55dvw] lg:w-[35dvw] h-fit mt-4 md:px-15">
+        <motion.div className="border border-white/30 w-[90dvw] xmd:w-[70dvw] sm:w-[50dvw] md:w-[55dvw] lg:w-[35dvw] h-fit mt-4 py-5 md:px-15 xmd:mt-24 backdrop-blur-xs bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] rounded-2xl">
               <motion.h2
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -40,7 +40,7 @@ const Login = () => {
        Login
               </motion.h2>
 
-      <motion.form className="flex flex-col gap-5 border">
+      <motion.form className="flex flex-col gap-5">
         <div>
             <input type="email" name="email" placeholder="Email Address" value={details.email} onChange={handleChange} required/>
             {/* <span></span> icon */}
@@ -52,12 +52,12 @@ const Login = () => {
         </div>
 
         <div className="flex justify-center -mt-2.5">
-            <Link to="forgot-password" className="text-sm font-light text-orange-300/70 underline">
+            <Link to="forgot-password" className="text-sm font-light text-orange-300/70 underline hover:scale-105 transition-all duration-200">
             Forgot Password?
             </Link>
         </div>
 
-
+        <div className="w-full flex justify-center">
         <motion.button
         type="submit"
           whileHover={{
@@ -67,7 +67,7 @@ const Login = () => {
               : "0px 0px 6px rgba(156, 163, 175, 0.4)",
           }}
           disabled={!details.email && !details.password}
-          className={`px-6 py-3 rounded-xl font-semibold shadow
+          className={`py-2 rounded-3xl w-[50%] font-semibold shadow
             ${
               details.email && details.password
                 ? "bg-orange-400/90 text-white border-none hover:bg-orange-500/70"
@@ -76,6 +76,13 @@ const Login = () => {
         >
           Next
         </motion.button>
+        </div>
+
+         <div className="flex justify-center -mt-2.5">
+            <Link to="forgot-password" className="text-sm font-light text-orange-300/70 underline hover:scale-105 transition-all duration-200">
+            Don't have an account? <span className="font-medium">Register</span>
+            </Link>
+        </div>
         
       </motion.form>
 

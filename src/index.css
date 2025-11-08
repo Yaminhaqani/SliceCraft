@@ -43,6 +43,15 @@ textarea:focus{
   @apply ring-2 ring-orange-500/70 outline-none border-transparent shadow-md shadow-amber-500;
 }
 
+
+/* :focus ->The element is currently active, :not(:placeholder-shown) -> Placeholder isn’t visible (means user typed text) */
+input:not(:placeholder-shown),
+select:not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+  @apply text-orange-300;
+}
+
+
 .custom-checkbox {
   @apply appearance-none w-4.5 h-4.5 border border-gray-600 rounded cursor-pointer;
   background-color: transparent;
