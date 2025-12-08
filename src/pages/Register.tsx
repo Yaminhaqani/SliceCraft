@@ -43,7 +43,7 @@ const Register = () => {
       style={{ backgroundImage: `url('./assets/restaurant-hero.jpg')` }}
     >
       <motion.div className="absolute inset-0 bg-black/70 flex justify-center">
-        <motion.div className="border border-white/30 w-[90dvw] xmd:w-[70dvw] sm:w-[50dvw] md:w-[55dvw] lg:w-[35dvw] h-fit mt-4 py-5 md:px-15 xmd:mt-24 backdrop-blur-xs bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] rounded-2xl">
+        <motion.div className="border border-white/30 w-[90dvw] xmd:w-[70dvw] sm:w-[50dvw] md:w-[55dvw] lg:w-[35dvw] h-fit mt-4 py-5 md:px-15 xmd:mt-20  backdrop-blur-xs bg-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)] rounded-2xl">
           <motion.h2
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
