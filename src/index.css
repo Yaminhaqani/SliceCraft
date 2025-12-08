@@ -8,6 +8,27 @@
   /* This makes the 'xs' variant available (e.g., xs:h-[...]) */
 }
 
+/* Chrome / Edge / Brave */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.2) inset !important;
+  -webkit-text-fill-color: #f97316 !important; /* Orange text (adjust if needed) */
+  caret-color: #f97316;
+}
+
+/* Firefox */
+input:-moz-autofill {
+  box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.2) inset !important;
+  color: #f97316 !important;
+}
+
+
+
 body {
   height: 100dvh;
   width: 100%;
@@ -18,12 +39,31 @@ body {
   background-position: center;
 }
 
-/* input,
-select,
-textarea {
-  @apply transition-colors duration-200 border border-gray-600;
-  
-} */
+/* Chrome / Edge / Brave autofill, stops color from changing when using autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill {
+  /* keep your transparent background / glass effect (tweak if needed) */
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+
+  /* match `text-orange-300` */
+  -webkit-text-fill-color: #fdba74 !important;
+  caret-color: #fdba74;
+
+  /* prevents weird flash */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Firefox */
+input:-moz-autofill {
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  color: #fdba74 !important;
+}
+
 
 input,
 select,
@@ -40,7 +80,8 @@ textarea:hover {
 input:focus,
 select:focus,
 textarea:focus{
-  @apply ring-2 ring-orange-500/70 outline-none border-transparent shadow-md shadow-amber-500;
+  @apply ring-1 ring-orange-500/70 outline-none border-orange-400/90
+ shadow-md shadow-amber-500;
 }
 
 

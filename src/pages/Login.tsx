@@ -1,11 +1,12 @@
 import { motion } from "motion/react";
 import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Login = () => {
 
     const [details, setDetails] = useState({email:"", password:""});
-    // const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         const { name, value } = e.target;
@@ -46,9 +47,15 @@ const Login = () => {
             {/* <span></span> icon */}
         </div>
 
-         <div>
-            <input type="password" name="password" placeholder="Password" value={details.password} onChange={handleChange} required/>
-            {/* <span></span> icon */}
+         <div className="relative">
+            <input type={showPassword ? "text" : "password"} name="password" placeholder="Password" value={details.password} onChange={handleChange} required className="pr-10"/>
+            <button type="button"
+            aria-label={showPassword ? "Hide password" : "Show password"}
+            onClick={()=> setShowPassword((prev)=>!prev)}
+            className="absolute inset-y-0 right-3"
+            >
+              {showPassword ? <FaEye size={13}/> : <FaEyeSlash size={13}/>}
+            </button>
         </div>
 
         <div className="flex justify-center -mt-2.5">
@@ -74,12 +81,12 @@ const Login = () => {
                 : "bg-gray-300 text-gray-500 border-none cursor-not-allowed"
             }`}
         >
-          Next
+          Login
         </motion.button>
         </div>
 
          <div className="flex justify-center -mt-2.5">
-            <Link to="forgot-password" className="text-sm font-light text-orange-300/70 underline hover:scale-105 transition-all duration-200">
+            <Link to="/register" className="text-sm font-light text-orange-300/70 underline hover:scale-105 transition-all duration-200">
             Don't have an account? <span className="font-medium">Register</span>
             </Link>
         </div>
