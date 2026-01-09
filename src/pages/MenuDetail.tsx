@@ -1,10 +1,12 @@
 //ZUSTAND
 import { useNavigate, useParams } from "react-router-dom";
-import { usePizzaStore } from "../zustand/pizzaStore";
-import { addToCart } from "../store/cartSlice";
+import { usePizzaStore, type PizzaOption } from "../zustand/pizzaStore";
+// import { addToCart } from "../store/cartSlice";
 import type { Variants } from "motion/react"; //because of typescript
 import { motion } from "motion/react";
 import toast from "react-hot-toast";
+import { useCartStore } from "../zustand/cartStore";
+import { useEffect, useState } from "react";
 
 //REDUX
 // import { useDispatch, useSelector } from "react-redux";
@@ -142,23 +144,56 @@ const MenuDetail = () => {
   const { id } = useParams() as { id: string }; //get the pizza ID from the URL
   const navigate = useNavigate();
 
-  const { menu } = usePizzaStore();
+  //PizzaStore
+  const { menu, sizes, fetchSizes } = usePizzaStore();
+
+  const addToCart = useCartStore((state)=>state.addToCart)
 
   const pizza = menu.find((p) => p._id === id);
 
-  if (!pizza) {
+  const [selectedSize, setSelectedSize] = useState<PizzaOption | null>(null);
+
+    useEffect(() => {
+    if (sizes.length === 0) {
+      fetchSizes();
+    }
+  }, [sizes.length, fetchSizes]);
+
+  // Auto-select SMALL size
+  useEffect(() => {
+    if (selectedSize) return; // prevent reset
+
+    const small = sizes.find(
+      (s) => s.name.toLowerCase() === "small"
+    );
+
+    if (small) {
+      setSelectedSize(small);
+    }
+  }, [sizes]);
+
+    if (!pizza) {
     return <p className="text-center mt-10 text-white">Pizza not found</p>;
   }
 
-  const handleAddToCart = (pizza: {
-    _id: string;
-    name: string;
-    price: number;
-  }) => {
+  // Final price calculation
+  const finalPrice = selectedSize
+    ? pizza.basePrice + selectedSize.price
+    : pizza.basePrice;
+
+  const handleAddToCart = () => {
+
+     if (!selectedSize) {
+      toast.error("Please select a size");
+      return;
+    }
+
     addToCart({
-      id: pizza._id,
+      id: `${pizza._id}-${selectedSize.name}`, //composite id
+      pizzaId: pizza._id,
       name: pizza.name,
-      price: pizza.price,
+      size: selectedSize.name,
+      price: finalPrice,
     });
     toast.success(`${pizza.name} added to cart!`);
   };
@@ -207,7 +242,7 @@ const MenuDetail = () => {
         Pizza Details
       </motion.h2>
 
-      <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl w-full p-4 py-4 mb-4 mx-auto bg-[#232425] rounded-2xl">
+      <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl w-full p-4 py-4 mb-4 mx-auto bg-[#232425] rounded-2xl mt-3">
         <motion.div className="rounded-xl overflow-hidden mb-4 sm:mb-0 flex justify-center items-center">
           <motion.img
             initial={{ x: -50, opacity: 0 }}
@@ -239,12 +274,29 @@ const MenuDetail = () => {
             <span className="font-medium">Toppings: </span>{" "}
             {pizza.toppings?.map((t) => t.name).join(", ") || "None"}
           </motion.p>
-          <motion.p variants={textVariants} className="text-gray-400 mb-4">
-            <span className="font-medium">Size: </span>{" "}
-            {pizza.size?.name || "N/A"}
-          </motion.p>
+          <motion.div variants={textVariants} className="mb-4">
+  <p className="font-medium mb-2">Choose Size</p>
+
+  <div className="flex gap-3 flex-wrap">
+    {sizes.map((size) => (
+      <button
+        key={size._id}
+        onClick={() => setSelectedSize(size)}
+        className={`px-3 py-1 rounded-md text-sm ${
+          selectedSize?._id === size._id
+            ? "bg-orange-400 text-black"
+            : "border text-gray-300"
+        }`}
+      >
+        {size.name}
+        {size.price > 0 && ` (+₹${size.price})`}
+      </button>
+    ))}
+  </div>
+</motion.div>
+
           <motion.p variants={textVariants} className="text-lg font-bold mb-4">
-            Price: ₹{pizza.price}
+            Price: ₹{finalPrice}
           </motion.p>
 
           <motion.div
@@ -267,9 +319,9 @@ const MenuDetail = () => {
               whileHover={{ scale: 1.09 }}
               whileTap={{ scale: 0.9 }}
               type="button"
-              onClick={() => {
-                handleAddToCart(pizza);
-              }}
+              onClick={
+                handleAddToCart  //np parameters because we are storing values separately like pizza, size, finalPrice.
+              }
               className="min-w-[100px] h-8 bg-orange-400 text-[12px] sm:text-[14px] font-['Orbitron'] px-3 rounded-md cursor-pointer text-center"
             >
               Add to Cart

@@ -21,14 +21,14 @@ const Register = () => {
     setDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  const progress = step / 2;  // step 1 => 0.5, step 2 => 1
+  const progress = step / 2; // step 1 => 0.5, step 2 => 1
 
-   const canGoNextStep1 =
+  const canGoNextStep1 =
     details.username.trim() !== "" &&
     details.email.trim() !== "" &&
     details.password.trim() !== "";
 
-    const canSubmitStep2 =
+  const canSubmitStep2 =
     details.address.trim() !== "" &&
     details.city.trim() !== "" &&
     details.state.trim() !== "" &&
@@ -64,7 +64,7 @@ const Register = () => {
             Step {step} of 2
           </p>
 
-           {/* Progress bar using Framer Motion x-axis (scaleX) */}
+          {/* Progress bar using Framer Motion x-axis (scaleX) */}
           <div className="w-[80%] mx-auto mb-5">
             <div className="w-full h-1.5 bg-white/15 rounded-full overflow-hidden">
               <motion.div
@@ -77,52 +77,59 @@ const Register = () => {
           </div>
 
           <motion.form className="flex flex-col gap-5">
+            {step === 1 && (
+              <>
+                <div>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={details.username}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-           {step === 1 && (<>
-            <div>
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={details.username}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <div>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    value={details.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={details.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Password"
+                    value={details.password}
+                    onChange={handleChange}
+                    required
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute inset-y-0 right-3"
+                  >
+                    {showPassword ? (
+                      <FaEye size={13} />
+                    ) : (
+                      <FaEyeSlash size={13} />
+                    )}
+                  </button>
+                </div>
+              </>
+            )}
 
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Password"
-                value={details.password}
-                onChange={handleChange}
-                required
-                className="pr-10"
-              />
-              <button
-                type="button"
-                aria-label={showPassword ? "Hide password" : "Show password"}
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute inset-y-0 right-3"
-              >
-                {showPassword ? <FaEye size={13} /> : <FaEyeSlash size={13} />}
-              </button>
-            </div>
-            </>)}
-
-             {step === 2 && (
+            {step === 2 && (
               <>
                 <div>
                   <input
@@ -174,13 +181,12 @@ const Register = () => {
               </>
             )}
 
-            <div  className={`w-full mt-5 ${
-    step === 1
-      ? "flex justify-center"
-      : "flex justify-between px-6"
-  }`}>
-
-                   {step === 2 && (
+            <div
+              className={`w-full mt-5 ${
+                step === 1 ? "flex justify-center" : "flex justify-between px-6"
+              }`}
+            >
+              {step === 2 && (
                 <motion.button
                   type="button"
                   whileHover={{ scale: 1.05 }}
@@ -191,7 +197,7 @@ const Register = () => {
                 </motion.button>
               )}
 
-                 <motion.button
+              <motion.button
                 type={step === 1 ? "button" : "submit"}
                 whileHover={{
                   scale: 1.1,
@@ -204,9 +210,7 @@ const Register = () => {
                       ? "0px 0px 8px rgba(255, 99, 71, 0.8)"
                       : "0px 0px 6px rgba(156, 163, 175, 0.4)",
                 }}
-                disabled={
-                  step === 1 ? !canGoNextStep1 : !canSubmitStep2
-                }
+                disabled={step === 1 ? !canGoNextStep1 : !canSubmitStep2}
                 onClick={() => {
                   if (step === 1 && canGoNextStep1) {
                     setStep(2);

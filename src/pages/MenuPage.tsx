@@ -91,27 +91,10 @@ const MenuPage = () => {
   // Pizza Store
   const { menu, fetchMenu } = usePizzaStore();
 
-  //Cart Store
-  const addToCart = useCartStore((state) => state.addToCart);
-
   //Fetch Menu
   useEffect(() => {
     fetchMenu();
   }, [fetchMenu]);
-
-  const handleAddToCart = (pizza: {
-    _id: string;
-    name: string;
-    price: number;
-  }) => {
-    addToCart({
-      id: pizza._id,
-      name: pizza.name,
-      price: pizza.price,
-    });
-
-    toast.success(`${pizza.name} added to cart!`);
-  };
 
   return (
     <motion.div
@@ -150,20 +133,20 @@ const MenuPage = () => {
             <h3 className="text-gray-200 text-lg font-bold mt-3 px-3">
               {pizza.name}
             </h3>
-            <p className="text-gray-400 text-md mb-3 px-3">₹{pizza.price}</p>
+            <p className="text-gray-400 text-md mb-3 px-3">Starting at ₹{pizza.basePrice}</p>
 
-            {/* Add to Cart Button */}
+          
             <motion.button
               whileHover={{ scale: 1.09 }}
               whileTap={{ scale: 0.9 }}
               type="button"
               onClick={(e) => {
                 e.stopPropagation(); //stops click from bubbling to parent div
-                handleAddToCart(pizza);
+                navigate(`/menu/${pizza._id}`)
               }}
               className="absolute bottom-4 xxs:bottom-3 x:bottom-2 md:bottom-4 right-4 bg-orange-400 text-[12px] font-['Orbitron'] p-1 rounded-md cursor-pointer"
             >
-              Add to Cart
+              View
             </motion.button>
           </motion.div>
         ))}

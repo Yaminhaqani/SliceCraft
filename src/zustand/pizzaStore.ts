@@ -14,9 +14,8 @@ type MenuPizza = {
   image: string;
   name: string;
   base: PizzaOption;
-  size: PizzaOption;
   toppings: PizzaOption[];
-  price: number;
+  basePrice: number;
 };
 
 interface PizzaState {
