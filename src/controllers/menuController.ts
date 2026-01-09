@@ -5,7 +5,7 @@ import streamifier from 'streamifier';
 
 export const getMenu = async (req: Request, res: Response) => {
   try {
-    const menu = await Menu.find().populate("base size toppings");
+    const menu = await Menu.find().populate("base toppings");
     res.json({ menu: menu });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch menu" });
