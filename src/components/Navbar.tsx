@@ -4,10 +4,13 @@ import { navLinks } from "../constants/navLinks";
 import { Link, useLocation } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
+import { useCartStore } from "../zustand/cartStore";
 
 
 const Navbar = () => {
   const [hamToggle, setHamToggle] = useState(false);
+  const cartCount = useCartStore((s)=> s.items.length);
+  
   const location = useLocation();
   return (
     <nav className="h-14 w-full flex sticky top-0 z-50 items-center justify-between sm:px-12 px-4   bg-black/30 backdrop-blur-md
@@ -136,17 +139,23 @@ const Navbar = () => {
       stiffness: 400, 
       damping: 10 
     }}
-         className="flex items-center">
+         className="relative flex items-center">
           <Link
             to="/cart"
+            aria-label="View cart"
             className={`p-2 rounded-full ${
     location.pathname === "/cart"
       ? "bg-orange-500/70 text-white"   
       : "text-gray-400 hover:bg-orange-500/30" 
   }`}
-            aria-label="View cart"
           >
             <FaShoppingCart className="text-lg" />
+                {cartCount > 0 && (
+        <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 flex items-center justify-center text-xs font-semibold font-['Orbitron'] text-black bg-orange-400 rounded-full">
+    {cartCount}
+  </span>
+    )}
+
           </Link>
         </motion.div>
       </div>

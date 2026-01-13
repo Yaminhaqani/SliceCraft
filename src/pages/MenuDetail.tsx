@@ -1,6 +1,6 @@
 //ZUSTAND
 import { useNavigate, useParams } from "react-router-dom";
-import { usePizzaStore, type PizzaOption } from "../zustand/pizzaStore";
+import {usePizzaStore, type PizzaOption } from "../zustand/pizzaStore";
 // import { addToCart } from "../store/cartSlice";
 import type { Variants } from "motion/react"; //because of typescript
 import { motion } from "motion/react";
@@ -145,9 +145,10 @@ const MenuDetail = () => {
   const navigate = useNavigate();
 
   //PizzaStore
-  const { menu, sizes, fetchSizes } = usePizzaStore();
-
-  const addToCart = useCartStore((state)=>state.addToCart)
+  const menu = usePizzaStore((state)=> state.menu);
+  const sizes = usePizzaStore((state)=> state.sizes);
+  const fetchSizes = usePizzaStore((s)=>s.fetchSizes);
+ const addToCart = useCartStore((s)=> s.addToCart);
 
   const pizza = menu.find((p) => p._id === id);
 
@@ -171,6 +172,7 @@ const MenuDetail = () => {
       setSelectedSize(small);
     }
   }, [sizes]);
+  
 
     if (!pizza) {
     return <p className="text-center mt-10 text-white">Pizza not found</p>;
@@ -289,7 +291,7 @@ const MenuDetail = () => {
         }`}
       >
         {size.name}
-        {size.price > 0 && ` (+₹${size.price})`}
+        {size.price > 0 && ` (+₹${size.price })`}
       </button>
     ))}
   </div>

@@ -13,6 +13,7 @@ import { AnimatePresence } from 'motion/react';
 import Login from '../pages/Login';
 import ForgotPassword from '../pages/ForgotPassword';
 import Register from '../pages/Register';
+import Cart from '../pages/Cart';
 
 // import Welcome from "./pages/Welcome";
 
@@ -47,6 +48,7 @@ function AnimatedRoutes() {
            <Route path="menu/add-menu" element={<AddMenu />} />
            <Route path="menu" element={<MenuPage />} />
            <Route path="menu/:id" element={<MenuDetail />} />
+           <Route path="/cart" element={<Cart/>} />
            <Route path ="login" element={<Login />}/>
            <Route path ="register" element={<Register />}/>
            <Route path ="forgot-password" element={<ForgotPassword />}/>

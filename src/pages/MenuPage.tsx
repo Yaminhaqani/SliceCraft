@@ -10,10 +10,8 @@
 //ZUSTAND IMPORTS
 import { useNavigate } from "react-router-dom";
 import { usePizzaStore } from "../zustand/pizzaStore";
-import { useCartStore } from "../zustand/cartStore";
 import { useEffect } from "react";
 import { motion } from "motion/react";
-import toast from "react-hot-toast";
 
 //redux based
 // const MenuPage = () => {
@@ -89,12 +87,34 @@ const MenuPage = () => {
   const navigate = useNavigate();
 
   // Pizza Store
-  const { menu, fetchMenu } = usePizzaStore();
+  /**
+ * WHY USE SHALLOW?
+ * By default, Zustand re-renders if the 'selected' object changes. 
+ * Since we are returning a new object { menu, sizes... }, it looks "new" every time.
+ * * useShallow prevents re-renders by checking if the ACTUAL VALUES inside 
+ * the object changed, rather than just checking the object's reference.
+ */
+  // const { menu, sizes, fetchMenu, fetchSizes } = usePizzaStore(
+  //   useShallow((state)=>({
+  //     menu: state.menu,
+  //     sizes: state.sizes,
+  //     fetchMenu: state.fetchMenu,
+  //     fetchSizes: state.fetchSizes,
+  //   }))
+  // );
+
+  //because we separated data and actions, so need to add shallow
+  const menu = usePizzaStore((state) => state.menu);
+  const sizes = usePizzaStore((state) => state.sizes);
+
+  const fetchMenu = usePizzaStore((s)=> s.fetchMenu);
+  const fetchSizes = usePizzaStore((s)=> s.fetchSizes);
 
   //Fetch Menu
   useEffect(() => {
     fetchMenu();
-  }, [fetchMenu]);
+    fetchSizes();
+  }, [fetchMenu, fetchSizes]);
 
   return (
     <motion.div
@@ -114,42 +134,49 @@ const MenuPage = () => {
         Choose from Menu
       </motion.h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-[93%] max-w-4xl mx-auto py-3 ">
-        {menu.map((pizza) => (
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-20px" }} //amount also does the same as margin.
-            onClick={() => navigate(`/menu/${pizza._id}`)}
-            key={pizza._id}
-            className="relative bg-[#232425] rounded-2xl overflow-hidden h-[400px] xxs:h-[450px] xs:h-[490px] x:h-[500px] sm:h-[420px] xmd:h-fit md:h-[370px] lg:h-[400px] cursor-pointer"
-          >
-            <img
-              src={pizza.image}
-              alt={pizza.image}
-              //  loading="lazy"
-              className="w-full object-cover"
-            />
-            <h3 className="text-gray-200 text-lg font-bold mt-3 px-3">
-              {pizza.name}
-            </h3>
-            <p className="text-gray-400 text-md mb-3 px-3">Starting at ₹{pizza.basePrice}</p>
+        {menu.map((pizza) => {
+          const small = sizes.find((s) => s.name.toLowerCase() === "small");
+          const base = pizza.basePrice ?? 0;
+          const startingPrice = base + (small?.price || 0);
 
-          
-            <motion.button
-              whileHover={{ scale: 1.09 }}
-              whileTap={{ scale: 0.9 }}
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation(); //stops click from bubbling to parent div
-                navigate(`/menu/${pizza._id}`)
-              }}
-              className="absolute bottom-4 xxs:bottom-3 x:bottom-2 md:bottom-4 right-4 bg-orange-400 text-[12px] font-['Orbitron'] p-1 rounded-md cursor-pointer"
+          return (
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              viewport={{ once: true, margin: "-20px" }} //amount also does the same as margin.
+              onClick={() => navigate(`/menu/${pizza._id}`)}
+              key={pizza._id}
+              className="relative bg-[#232425] rounded-2xl overflow-hidden h-[400px] xxs:h-[450px] xs:h-[490px] x:h-[500px] sm:h-[420px] xmd:h-fit md:h-[370px] lg:h-[400px] cursor-pointer"
             >
-              View
-            </motion.button>
-          </motion.div>
-        ))}
+              <img
+                src={pizza.image}
+                alt={pizza.image}
+                //  loading="lazy"
+                className="w-full object-cover"
+              />
+              <h3 className="text-gray-200 text-lg font-bold mt-3 px-3">
+                {pizza.name}
+              </h3>
+              <p className="text-gray-400 text-md mb-3 px-3">
+                Starting at ₹{startingPrice}
+              </p>
+
+              <motion.button
+                whileHover={{ scale: 1.09 }}
+                whileTap={{ scale: 0.9 }}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation(); //stops click from bubbling to parent div
+                  navigate(`/menu/${pizza._id}`);
+                }}
+                className="absolute bottom-4 xxs:bottom-3 x:bottom-2 md:bottom-4 right-4 bg-orange-400 text-[12px] font-['Orbitron'] p-1 rounded-md cursor-pointer"
+              >
+                View
+              </motion.button>
+            </motion.div>
+          );
+        })}
       </div>
     </motion.div>
   );

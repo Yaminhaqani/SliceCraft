@@ -13,8 +13,7 @@ import { useCurrentPizzaStore } from "./zustand/currentPizzaStore";
 
 const App = () => {
   // const total = useSelector(selectPizzaTotal) //REDUX
-  const { getTotal } = useCurrentPizzaStore();
-  const currentTotal = getTotal();
+  const currentTotal = useCurrentPizzaStore((state)=> state.getTotal());
 
   return (
     <div className="w-screen min-h-dvh bg-gradient-to-b from-[#1C1C1E] to-[#212124] overflow-y-auto">
